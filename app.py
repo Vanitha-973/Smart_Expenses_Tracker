@@ -22,7 +22,7 @@ def create_app():
     def home():
         if session.get("user_id"):
             return redirect(url_for("analytics.dashboard"))
-        return redirect(url_for("auth.login"))
+        return redirect(url_for("auth.title_screen"))
 
     @app.context_processor
     def inject_globals():

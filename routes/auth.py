@@ -6,6 +6,13 @@ from models.db import execute_db, query_db
 auth_bp = Blueprint("auth", __name__)
 
 
+@auth_bp.route("/title")
+def title_screen():
+    if session.get("user_id"):
+        return redirect(url_for("analytics.dashboard"))
+    return render_template("title.html")
+
+
 @auth_bp.route("/register", methods=["GET", "POST"])
 def register():
     if session.get("user_id"):
