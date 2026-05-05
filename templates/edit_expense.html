@@ -1,0 +1,71 @@
+{% extends 'base.html' %} {% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4 p-md-5">
+        <h1 class="h3 fw-bold mb-4">Edit Expense</h1>
+        <form method="post" class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Title</label>
+            <input
+              type="text"
+              name="title"
+              class="form-control"
+              value="{{ expense.title }}"
+              required
+            />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Amount</label>
+            <input
+              type="number"
+              step="0.01"
+              min="0"
+              name="amount"
+              class="form-control"
+              value="{{ expense.amount }}"
+              required
+            />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Category</label>
+            <input
+              type="text"
+              name="category"
+              class="form-control"
+              value="{{ expense.category }}"
+              required
+            />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Date</label>
+            <input
+              type="date"
+              name="expense_date"
+              class="form-control"
+              value="{{ expense.expense_date }}"
+              required
+            />
+          </div>
+          <div class="col-12">
+            <label class="form-label">Description</label>
+            <textarea name="description" rows="4" class="form-control">
+{{ expense.description or '' }}</textarea
+            >
+          </div>
+          <div class="col-12">
+            <button class="btn btn-primary" type="submit">
+              Update Expense
+            </button>
+            <a
+              class="btn btn-outline-secondary"
+              href="{{ url_for('expenses.view_expenses') }}"
+              >Back</a
+            >
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

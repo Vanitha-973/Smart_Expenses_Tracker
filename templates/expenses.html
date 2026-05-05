@@ -1,0 +1,69 @@
+{% extends 'base.html' %} {% block content %}
+<div class="card shadow-sm border-0">
+  <div class="card-body p-4">
+    <div
+      class="d-flex flex-wrap gap-2 justify-content-between align-items-center mb-3"
+    >
+      <h1 class="h4 fw-bold mb-0">All Expenses</h1>
+      <a class="btn btn-primary" href="{{ url_for('expenses.add_expense') }}"
+        >Add Expense</a
+      >
+    </div>
+
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th class="text-end">Amount</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for expense in expenses %}
+          <tr>
+            <td>
+              <div class="fw-semibold">{{ expense.title }}</div>
+              {% if expense.description %}
+              <small class="text-muted">{{ expense.description }}</small>
+              {% endif %}
+            </td>
+            <td>{{ expense.category }}</td>
+            <td>{{ expense.expense_date }}</td>
+            <td class="text-end fw-semibold">
+              ₹{{ '%.2f'|format(expense.amount|float) }}
+            </td>
+            <td>
+              <div class="d-flex gap-2">
+                <a
+                  class="btn btn-sm btn-outline-primary"
+                  href="{{ url_for('expenses.edit_expense', expense_id=expense.id) }}"
+                  >Edit</a
+                >
+                <form
+                  method="post"
+                  action="{{ url_for('expenses.delete_expense', expense_id=expense.id) }}"
+                  onsubmit="return confirm('Delete this expense?');"
+                >
+                  <button class="btn btn-sm btn-outline-danger" type="submit">
+                    Delete
+                  </button>
+                </form>
+              </div>
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="5" class="text-center text-muted py-4">
+              No expenses found.
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
